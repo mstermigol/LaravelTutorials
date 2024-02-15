@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
     public static $products = [
-        ["id"=>"1", "name"=>"TV", "description"=>"Best TV"],
-        ["id"=>"2", "name"=>"iPhone", "description"=>"Best iPhone"],
-        ["id"=>"3", "name"=>"Chromecast", "description"=>"Best Chromecast"],
-        ["id"=>"4", "name"=>"Glasses", "description"=>"Best Glasses"]
+        ["id"=>"1", "name"=>"TV", "description"=>"Best TV", "price" => "5500000"],
+        ["id"=>"2", "name"=>"iPhone", "description"=>"Best iPhone", "price" => "2500000"],
+        ["id"=>"3", "name"=>"Chromecast", "description"=>"Best Chromecast", "price" => "1500000"],
+        ["id"=>"4", "name"=>"Glasses", "description"=>"Best Glasses", "price" => "800000"]
     ];
 
     public function index(): View
@@ -23,8 +24,12 @@ class ProductController extends Controller
         return view('product.index')->with("viewData", $viewData);
     }
 
-    public function show(string $id) : View
+    public function show(string $id) : View | RedirectResponse
     {
+        if (!array_key_exists($id - 1, ProductController::$products)) {
+            return redirect()->route('home.index');
+        }
+
         $viewData = [];
         $product = ProductController::$products[$id-1];
         $viewData["title"] = $product["name"]." - Online Store";
@@ -45,9 +50,11 @@ class ProductController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "price" => "required"
+            "price" => "required|numeric|gt:0"
         ]);
-        dd($request->all());
+        
+        $viewData = $request->all();
+        return view('product.save')->with("viewData", $viewData);
         //here will be the code to call the model and save it to the database
     }
 

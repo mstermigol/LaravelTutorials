@@ -9,10 +9,18 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
+        @if ($viewData["product"]["price"] < 100)
         <h5 class="card-title">
-           {{ $viewData["product"]["name"] }}
+          {{ $viewData["product"]["name"] }}
         </h5>
+        @else
+        <h5 class="card-title" style="color: red">
+          {{ $viewData["product"]["name"] }}
+        </h5>
+        @endif
         <p class="card-text">{{ $viewData["product"]["description"] }}</p>
+        <p class="card-text">{{ "$".$viewData["product"]["price"] }}</p>
+
       </div>
     </div>
   </div>
