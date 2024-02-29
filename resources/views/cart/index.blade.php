@@ -10,8 +10,8 @@
       @foreach($viewData["products"] as $key => $product)
         <li>
           Id: {{ $key }} - 
-          Name: {{ $product["name"] }} -
-          Price: {{ $product["price"] }} -
+          Name: {{ $product->getName() }} -
+          Price: {{ $product->getPrice() }} -
           <a href="{{ route('cart.add', ['id'=> $key]) }}">Add to cart</a>
         </li>
       @endforeach
@@ -26,8 +26,8 @@
         @foreach($viewData["cartProducts"] as $key => $product)
           <li>
             Id: {{ $key }} - 
-            Name: {{ $product["name"] }} -
-            Price: {{ $product["price"] }}
+            Name: {{ $product->getName() }} -
+            Price: {{ $product->getPrice() }}
           </li>
         @endforeach
       </ul>

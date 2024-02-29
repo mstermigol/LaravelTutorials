@@ -9,17 +9,17 @@
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        @if ($viewData["product"]["price"] < 100) <h5 class="card-title">
-          {{ $viewData["product"]["name"] }}
+        @if ($viewData["product"]->getPrice() < 100) <h5 class="card-title">
+          {{ $viewData["product"]->getName() }}
           </h5>
           @else
           <h5 class="card-title red">
-            {{ $viewData["product"]["name"] }}
+            {{ $viewData["product"]->getName() }}
           </h5>
           @endif
-          <p class="card-text">${{ $viewData["product"]["price"] }}</p>
+          <p class="card-text">${{ $viewData["product"]->getPrice() }}</p>
 
-          @foreach($viewData["product"]->comments as $comment)
+          @foreach($viewData["product"]->getComments() as $comment)
 
           - {{ $comment->getDescription() }}<br />
 
