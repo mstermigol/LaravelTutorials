@@ -74,7 +74,7 @@ class Comment extends Model
 
     }
 
-    public function setProduct($product): void
+    public function setProduct(Product $product): void
     {
 
         $this->product = $product;
