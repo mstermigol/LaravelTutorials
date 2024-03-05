@@ -43,7 +43,7 @@ class ProductController extends Controller
         return view('product.create')->with('viewData', $viewData);
     }
 
-    public function save(Request $request)
+    public function save(Request $request): View
     {
         Product::validate($request);
 
