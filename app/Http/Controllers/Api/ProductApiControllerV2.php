@@ -8,6 +8,8 @@ use App\Http\Resources\ProductResource;
 
 use App\Models\Product;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Http\JsonResponse;
 
 class ProductApiControllerV2 extends Controller
@@ -31,4 +33,10 @@ class ProductApiControllerV2 extends Controller
 
     }
 
+    public function store(Request $request): JsonResponse
+    {
+        Product::validate($request);
+        $product = Product::create($request->only(['name', 'price']));
+        return response()->json(new ProductResource($product), 201);
+    }
 }
